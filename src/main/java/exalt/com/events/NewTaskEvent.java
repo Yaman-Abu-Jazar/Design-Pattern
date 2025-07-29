@@ -1,6 +1,8 @@
-package exalt.com;
+package exalt.com.events;
 
 import java.time.LocalDateTime;
+
+import exalt.com.core.Event;
 
 public class NewTaskEvent implements Event {
 

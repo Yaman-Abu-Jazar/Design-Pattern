@@ -1,4 +1,6 @@
-package exalt.com;
+package exalt.com.subscribers;
+
+import exalt.com.core.EventSubscriber;
 
 public class User implements EventSubscriber {
     private int id;

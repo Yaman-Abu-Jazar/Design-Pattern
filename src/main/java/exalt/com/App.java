@@ -2,6 +2,10 @@ package exalt.com;
 
 import java.time.LocalDateTime;
 
+import exalt.com.core.EventManager;
+import exalt.com.events.NewTaskEvent;
+import exalt.com.subscribers.User;
+
 /**
  * Hello world!
  *

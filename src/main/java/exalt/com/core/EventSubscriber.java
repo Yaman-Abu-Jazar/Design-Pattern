@@ -1,4 +1,4 @@
-package exalt.com;
+package exalt.com.core;
 
 public interface EventSubscriber {
 

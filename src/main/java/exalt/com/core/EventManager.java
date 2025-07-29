@@ -1,4 +1,4 @@
-package exalt.com;
+package exalt.com.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
