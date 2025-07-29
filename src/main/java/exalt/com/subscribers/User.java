@@ -8,7 +8,9 @@ public class User implements EventSubscriber {
     private String lName;
     private boolean isAdmin;
 
-    public User(){}
+    public User(int id){
+        this.id = id;
+    }
 
     public User(int id, String fName, String lName, boolean isAdmin){
         this.id = id;
@@ -51,7 +53,7 @@ public class User implements EventSubscriber {
 
     @Override
     public String toString() {
-        return "User Id : " + this.id + " Name : " + this.fName + " " + this.lName;
+        return "User Id : " + this.id + "and User Name : " + this.fName + " " + this.lName;
     }
 
 
