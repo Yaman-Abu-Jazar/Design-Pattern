@@ -11,25 +11,22 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import exalt.com.builders.EventBuilder;
-import exalt.com.builders.NewTaskBuilder;
 import exalt.com.builders.SubscriberBuilder;
-import exalt.com.events.NewTaskEvent;
 import exalt.com.models.EventType;
 import exalt.com.models.Priority;
 import exalt.com.models.SubscriberType;
-import exalt.com.subscribers.SMSSubscriber;
 
 /**
  * Unit test for EventManager Class.
  */
-public class EventManagerTest {
+class EventManagerTest {
 
     private static EventManager manager;
     private static Event event;
     private static EventSubscriber subscriber;
 
     @BeforeAll
-    public static void initializeVariables(){
+    static void initializeVariables(){
         manager = EventManager.getInstance();
 
         event = new EventBuilder("Christmas")
@@ -43,13 +40,13 @@ public class EventManagerTest {
     }
 
     @AfterEach
-    public void clearList(){
+    void clearList(){
         manager.clearSubscribers();
         manager.clearSystemSubscribers();
     }
 
     @Test
-    public void publishTest(){
+    void publishTest(){
         manager.publish(event);
 
         // Check if the event was added
@@ -59,7 +56,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void subscribeTest(){
+    void subscribeTest(){
         manager.publish(event);
 
         manager.subscribe(event, subscriber);
@@ -71,7 +68,7 @@ public class EventManagerTest {
     }
 
     @Test
-    public void unsubscribeTest(){
+    void unsubscribeTest(){
         manager.publish(event);
 
         manager.subscribe(event, subscriber);

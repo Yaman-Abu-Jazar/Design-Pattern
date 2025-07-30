@@ -16,7 +16,7 @@ public class EventBuilder {
     private Priority priority = Priority.MEDIUM;
     private EventType type = EventType.NEWTASK;
 
-    public EventBuilder(String name){
+    public  EventBuilder(String name){
         this.name = name;
     }
 
