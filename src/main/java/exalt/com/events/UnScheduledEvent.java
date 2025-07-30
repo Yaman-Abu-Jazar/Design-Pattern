@@ -6,7 +6,7 @@ import exalt.com.core.Event;
 import exalt.com.models.EventType;
 import exalt.com.models.Priority;
 
-public class NewTaskEvent implements Event {
+public class UnScheduledEvent implements Event {
 
     private String name;
     private String description;
@@ -14,7 +14,7 @@ public class NewTaskEvent implements Event {
     private Priority priority;
     private EventType type;
 
-    public NewTaskEvent(String name, String description, LocalDateTime eventTime, Priority priority, EventType type) {
+    public UnScheduledEvent(String name, String description, LocalDateTime eventTime, Priority priority, EventType type) {
         this.name = name;
         this.description = description;
         this.eventTime = eventTime;
@@ -68,7 +68,7 @@ public class NewTaskEvent implements Event {
 
     @Override 
     public String toString(){
-        return "Event Name : " + this.name + " Event Time : " + this.eventTime + " (NewTask Event)";
+        return "Event Name : " + this.name + " Event Time : " + this.eventTime + " (Unscheduled Event)";
     }
     
 }
