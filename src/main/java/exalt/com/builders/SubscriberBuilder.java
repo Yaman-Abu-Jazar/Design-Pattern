@@ -6,6 +6,7 @@ import exalt.com.core.EventSubscriber;
 import exalt.com.models.Priority;
 import exalt.com.models.SubscriberType;
 import exalt.com.subscribers.ConsoleSubscriber;
+import exalt.com.subscribers.EmailSubscriber;
 import exalt.com.subscribers.SMSSubscriber;
 
 public class SubscriberBuilder {
@@ -43,13 +44,16 @@ public class SubscriberBuilder {
     public EventSubscriber build(){
         switch (this.type) {
             case SubscriberType.CONSOLE -> {
-                return new ConsoleSubscriber();
+                return new ConsoleSubscriber(this.id, this.fName, this.lName, this.isAdmin, this.dailyWorkHoursBegin,
+                this.dailyWorkHoursEnd, this.desiredEventPriority, this.type);
             }
             case SubscriberType.SMS -> {
-                return new SMSSubscriber();
+                return new SMSSubscriber(this.id, this.fName, this.lName, this.isAdmin, this.dailyWorkHoursBegin,
+                this.dailyWorkHoursEnd, this.desiredEventPriority, this.type);
             }
             case SubscriberType.EMAIL -> {
-                return new ;
+                return new EmailSubscriber(this.id, this.fName, this.lName, this.isAdmin, this.dailyWorkHoursBegin,
+                this.dailyWorkHoursEnd, this.desiredEventPriority, this.type);
             }
             default -> throw new AssertionError();
         }

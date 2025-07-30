@@ -48,9 +48,8 @@ public class EventBuilder {
             case EventType.SCHEDULED -> {
                 return new ScheduledEvent(this.name, this.description, this.eventTime, this.priority, this.type);
             }
-            default -> System.out.println("UnKnown Event Type");
+            default -> throw new AssertionError();
         }
-        
     }
 
 }

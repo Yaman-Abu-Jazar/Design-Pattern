@@ -16,6 +16,17 @@ public class SMSSubscriber implements EventSubscriber {
     private Priority desiredEventPriority;
     private SubscriberType type;
 
+    public SMSSubscriber(int id, String fName, String lName, boolean isAdmin, LocalTime dailyWorkHoursBegin, LocalTime dailyWorkHoursEnd, Priority desiredEventPriority, SubscriberType type) {
+        this.id = id;
+        this.fName = fName;
+        this.lName = lName;
+        this.isAdmin = isAdmin;
+        this.dailyWorkHoursBegin = dailyWorkHoursBegin;
+        this.dailyWorkHoursEnd = dailyWorkHoursEnd;
+        this.desiredEventPriority = desiredEventPriority;
+        this.type = type;
+    }
+
     public int getId() {
         return id;
     }
