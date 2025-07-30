@@ -20,4 +20,12 @@ public enum Priority {
     public String getDescription() {
         return description;
     }
+
+    public boolean isEqualOrGreater(Priority priority){
+        boolean EorG = false;
+        if(this.level >= priority.level){
+            EorG = true;
+        }
+        return EorG;
+    }
 }

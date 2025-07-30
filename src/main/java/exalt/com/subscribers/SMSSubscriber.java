@@ -15,8 +15,12 @@ public class SMSSubscriber implements EventSubscriber {
     private LocalTime dailyWorkHoursEnd;
     private Priority desiredEventPriority;
     private SubscriberType type;
+    private boolean priorityBasedNotify;
+    private boolean workHoursBasedNotify;
+    private boolean allNotification;
+    private boolean noneNotification;
 
-    public SMSSubscriber(int id, String fName, String lName, boolean isAdmin, LocalTime dailyWorkHoursBegin, LocalTime dailyWorkHoursEnd, Priority desiredEventPriority, SubscriberType type) {
+    public SMSSubscriber(int id, String fName, String lName, boolean isAdmin, LocalTime dailyWorkHoursBegin, LocalTime dailyWorkHoursEnd, Priority desiredEventPriority, SubscriberType type, boolean priorityBasedNotify, boolean workHoursBasedNotify, boolean allNotification, boolean noneNotification) {
         this.id = id;
         this.fName = fName;
         this.lName = lName;
@@ -25,6 +29,10 @@ public class SMSSubscriber implements EventSubscriber {
         this.dailyWorkHoursEnd = dailyWorkHoursEnd;
         this.desiredEventPriority = desiredEventPriority;
         this.type = type;
+        this.priorityBasedNotify = priorityBasedNotify;
+        this.workHoursBasedNotify = workHoursBasedNotify;
+        this.allNotification = allNotification;
+        this.noneNotification = noneNotification;
     }
 
     public int getId() {
@@ -63,14 +71,17 @@ public class SMSSubscriber implements EventSubscriber {
         return type;
     }
 
+    @Override
     public Priority getDesiredEventPriority() {
         return desiredEventPriority;
     }
 
+    @Override
     public LocalTime getDailyWorkHoursEnd() {
         return dailyWorkHoursEnd;
     }
 
+    @Override
     public LocalTime getDailyWorkHoursBegin() {
         return dailyWorkHoursBegin;
     }
@@ -94,6 +105,38 @@ public class SMSSubscriber implements EventSubscriber {
     @Override
     public String toString() {
         return "User Id : " + this.id + " User Name : " + this.fName + " " + this.lName;
+    }
+
+    public void setPriorityBasedNotify(boolean priorityBasedNotify) {
+        this.priorityBasedNotify = priorityBasedNotify;
+    }
+
+    public boolean getPriorityBasedNotify() {
+        return this.priorityBasedNotify;
+    }
+
+    public void setWorkHoursBasedNotify(boolean workHoursBasedNotify) {
+        this.workHoursBasedNotify = workHoursBasedNotify;
+    }
+
+    public boolean getWorkHoursBasedNotify() {
+        return this.workHoursBasedNotify;
+    } 
+
+    public boolean isAllNotification() {
+        return allNotification;
+    }
+
+    public void setAllNotification(boolean allNotification) {
+        this.allNotification = allNotification;
+    }
+
+    public boolean isNoneNotification() {
+        return noneNotification;
+    }
+
+    public void setNoneNotification(boolean noneNotification) {
+        this.noneNotification = noneNotification;
     }
 
     @Override

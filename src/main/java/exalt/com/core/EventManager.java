@@ -12,6 +12,9 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import exalt.com.concurrency.Task;
+import exalt.com.filters.MyFilter;
+import exalt.com.filters.PriorityFilter;
+import exalt.com.filters.WorkHoursFilter;
 import exalt.com.models.EventType;
 
 public class EventManager {
@@ -48,9 +51,14 @@ public class EventManager {
 
     // function to publish new event and add it to the hash map
     public void publish(Event event){
+        List<EventSubscriber> filteredList = new ArrayList<>();
+        MyFilter filterPriority = new PriorityFilter();
+        MyFilter filterWorkHours = new WorkHoursFilter();
         if(!this.subscribers.containsKey(event)){
             this.subscribers.put(event, new ArrayList<>());
             System.out.println("This Event : " + event + " has been published");
+            filteredList.addAll(this.allSubscribers);
+            
             if(!allSubscribers.isEmpty()){
                 for(EventSubscriber subscriber : allSubscribers){
                     subscriber.update();

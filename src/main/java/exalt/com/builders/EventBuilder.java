@@ -12,7 +12,7 @@ public class EventBuilder {
     
     private final String name;
     private String description = "";
-    private LocalDateTime eventTime = LocalDateTime.of(2025, 10, 30, 0, 0);
+    private LocalDateTime eventTime = null;
     private Priority priority = Priority.MEDIUM;
     private EventType type = EventType.UNSCHEDULED;
 

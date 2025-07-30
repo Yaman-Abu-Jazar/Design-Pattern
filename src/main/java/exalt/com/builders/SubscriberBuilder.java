@@ -14,10 +14,14 @@ public class SubscriberBuilder {
     private String fName;
     private String lName;
     private boolean isAdmin = false;
-    private LocalTime dailyWorkHoursBegin = LocalTime.of(0, 0, 0);
-    private LocalTime dailyWorkHoursEnd = LocalTime.of(0, 0, 0);
+    private LocalTime dailyWorkHoursBegin = null;
+    private LocalTime dailyWorkHoursEnd = null;
     private Priority desiredEventPriority = Priority.LOW;
     private SubscriberType type = SubscriberType.CONSOLE;
+    private boolean priorityBasedNotify = false;
+    private boolean workHoursBasedNotify = false;
+    private boolean allNotification = false;
+    private boolean noneNotification = false;
 
     public SubscriberBuilder(int id, String fName, String lName) {
         this.id = id;
@@ -41,19 +45,32 @@ public class SubscriberBuilder {
         return this;
     }
 
+    public SubscriberBuilder setPriorityBasedNotify(boolean priorityBasedNotify){
+        this.priorityBasedNotify = priorityBasedNotify;
+        return this;
+    }
+
+    public SubscriberBuilder setWorkHoursBasedNotify(boolean workHoursBasedNotify){
+        this.workHoursBasedNotify = workHoursBasedNotify;
+        return this;
+    }
+
     public EventSubscriber build(){
         switch (this.type) {
             case SubscriberType.CONSOLE -> {
                 return new ConsoleSubscriber(this.id, this.fName, this.lName, this.isAdmin, this.dailyWorkHoursBegin,
-                this.dailyWorkHoursEnd, this.desiredEventPriority, this.type);
+                this.dailyWorkHoursEnd, this.desiredEventPriority, this.type, this.priorityBasedNotify, this.workHoursBasedNotify,
+                this.allNotification, this.noneNotification);
             }
             case SubscriberType.SMS -> {
                 return new SMSSubscriber(this.id, this.fName, this.lName, this.isAdmin, this.dailyWorkHoursBegin,
-                this.dailyWorkHoursEnd, this.desiredEventPriority, this.type);
+                this.dailyWorkHoursEnd, this.desiredEventPriority, this.type, this.priorityBasedNotify, this.workHoursBasedNotify,
+                this.allNotification, this.noneNotification);
             }
             case SubscriberType.EMAIL -> {
                 return new EmailSubscriber(this.id, this.fName, this.lName, this.isAdmin, this.dailyWorkHoursBegin,
-                this.dailyWorkHoursEnd, this.desiredEventPriority, this.type);
+                this.dailyWorkHoursEnd, this.desiredEventPriority, this.type, this.priorityBasedNotify, this.workHoursBasedNotify,
+                this.allNotification, this.noneNotification);
             }
             default -> throw new AssertionError();
         }
