@@ -32,7 +32,7 @@ class EventManagerTest {
         event = new EventBuilder("Christmas")
                         .setDescription("annual festival commemorating the birth of Jesus Christ, observed primarily on December 25")
                         .setEventTime(LocalDateTime.of(2025, 12, 25, 20, 0))
-                        .setEventPriority(Priority.HIGH).setEventType(EventType.NEWTASK).build();
+                        .setEventPriority(Priority.HIGH).setEventType(EventType.SCHEDULED).build();
 
         subscriber = new SubscriberBuilder(1, "Yaman", "Abu Jazar")
                         .setDailyWorkHours(LocalTime.of(8, 0), LocalTime.of(17, 0))
@@ -82,5 +82,14 @@ class EventManagerTest {
         assertFalse(manager.getSubscribers().get(event).contains(subscriber));
         assertEquals(0, manager.getSubscribers().get(event).size());
         assertEquals(1, manager.getSystemSubscribers().size());
+    }
+
+    @Test
+    public void heartbeatTest(){
+        manager.publish(event);
+
+        manager.subscribe(event, subscriber);
+
+        manager.heartbeat();
     }
 }

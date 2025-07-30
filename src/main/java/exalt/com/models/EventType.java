@@ -1,8 +1,8 @@
 package exalt.com.models;
 
 public enum EventType {
-    NEWTASK(0, "New Task"),
-    SCHEDULED(1, "Time-Based Event");
+    UNSCHEDULED(0, "Unscheduled Event"),
+    SCHEDULED(1, "Scheduled Event");
 
     private final int type;
     private final String description;

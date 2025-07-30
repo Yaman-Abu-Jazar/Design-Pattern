@@ -3,8 +3,8 @@ package exalt.com.builders;
 import java.time.LocalDateTime;
 
 import exalt.com.core.Event;
-import exalt.com.events.NewTaskEvent;
 import exalt.com.events.ScheduledEvent;
+import exalt.com.events.UnScheduledEvent;
 import exalt.com.models.EventType;
 import exalt.com.models.Priority;
 
@@ -14,7 +14,7 @@ public class EventBuilder {
     private String description = "";
     private LocalDateTime eventTime = LocalDateTime.of(2025, 10, 30, 0, 0);
     private Priority priority = Priority.MEDIUM;
-    private EventType type = EventType.NEWTASK;
+    private EventType type = EventType.UNSCHEDULED;
 
     public  EventBuilder(String name){
         this.name = name;
@@ -42,8 +42,8 @@ public class EventBuilder {
 
     public Event build(){
         switch (this.type) {
-            case EventType.NEWTASK -> {
-                return new NewTaskEvent(this.name, this.description, this.eventTime, this.priority, this.type);
+            case EventType.UNSCHEDULED -> {
+                return new UnScheduledEvent(this.name, this.description, this.eventTime, this.priority, this.type);
             }
             case EventType.SCHEDULED -> {
                 return new ScheduledEvent(this.name, this.description, this.eventTime, this.priority, this.type);

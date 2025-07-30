@@ -1,19 +1,27 @@
 package exalt.com.core;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import exalt.com.concurrency.Task;
+import exalt.com.models.EventType;
 
 public class EventManager {
 
     private final Map<Event, List<EventSubscriber>> subscribers;
     private final List<EventSubscriber> allSubscribers;
     private static EventManager manager;
+    private int nSubscribers;
 
     private EventManager() {
-        subscribers = new HashMap<>();
+        subscribers = new ConcurrentHashMap<>();
         allSubscribers = new ArrayList<>();
+        nSubscribers = 0;
     }
 
     public static EventManager getInstance(){
@@ -41,6 +49,7 @@ public class EventManager {
             if(!allSubscribers.isEmpty()){
                 for(EventSubscriber subscriber : allSubscribers){
                     subscriber.update();
+                    nSubscribers = allSubscribers.size();
                 }
             } else {
                 System.out.println("The system has no subscribers yet.");
@@ -107,5 +116,16 @@ public class EventManager {
 
     public void clearSystemSubscribers(){
         allSubscribers.clear();
+    }
+
+    public void heartbeat(){
+        ScheduledExecutorService schedulor = Executors.newScheduledThreadPool(nSubscribers);
+        for(Event event : manager.getSubscribers().keySet()){
+            if(event.getEventType().equals(EventType.SCHEDULED)){
+                Task task = new Task(event);
+                schedulor.scheduleWithFixedDelay(task, 2, 10, TimeUnit.SECONDS);
+            }
+            
+        }
     }
 }
