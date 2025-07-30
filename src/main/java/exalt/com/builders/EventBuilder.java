@@ -10,7 +10,7 @@ import exalt.com.models.Priority;
 
 public class EventBuilder {
     
-    private String name;
+    private final String name;
     private String description = "";
     private LocalDateTime eventTime = LocalDateTime.of(2025, 10, 30, 0, 0);
     private Priority priority = Priority.MEDIUM;

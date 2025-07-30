@@ -1,5 +1,8 @@
 package exalt.com.core;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +20,8 @@ public class EventManager {
     private final List<EventSubscriber> allSubscribers;
     private static EventManager manager;
     private int nSubscribers;
+
+    List<String> content = new ArrayList<>();
 
     private EventManager() {
         subscribers = new ConcurrentHashMap<>();
@@ -119,13 +124,22 @@ public class EventManager {
     }
 
     public void heartbeat(){
+        int nHeartbeat;
+        try {
+            content = Files.readAllLines(Paths.get("src/main/java/exalt/com/file.txt"));
+            String separator = "=";
+            String[] splittedString = content.get(0).split(separator);
+            nHeartbeat = Integer.parseInt(splittedString[1]);
+        } catch (IOException exception) {
+            System.out.println("File not found");
+            nHeartbeat = 10;
+        }
         ScheduledExecutorService schedulor = Executors.newScheduledThreadPool(nSubscribers);
         for(Event event : manager.getSubscribers().keySet()){
             if(event.getEventType().equals(EventType.SCHEDULED)){
                 Task task = new Task(event);
-                schedulor.scheduleWithFixedDelay(task, 2, 10, TimeUnit.SECONDS);
+                schedulor.scheduleWithFixedDelay(task, 2, nHeartbeat, TimeUnit.SECONDS);
             }
-            
         }
     }
 }

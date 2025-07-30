@@ -26,7 +26,7 @@ class EventManagerTest {
     private static EventSubscriber subscriber;
 
     @BeforeAll
-    static void initializeVariables(){
+    static void setUp(){
         manager = EventManager.getInstance();
 
         event = new EventBuilder("Christmas")
@@ -85,11 +85,16 @@ class EventManagerTest {
     }
 
     @Test
-    public void heartbeatTest(){
+    void heartbeatTest(){
         manager.publish(event);
 
         manager.subscribe(event, subscriber);
 
         manager.heartbeat();
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+        }
     }
 }

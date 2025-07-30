@@ -1,13 +1,10 @@
 package exalt.com;
 
-import java.time.LocalDateTime;
-
-import exalt.com.builders.NewTaskBuilder;
-import exalt.com.core.EventManager;
-import exalt.com.core.EventSubscriber;
-import exalt.com.events.NewTaskEvent;
-import exalt.com.models.EventType;
-import exalt.com.models.Priority;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Hello world!
@@ -16,9 +13,9 @@ import exalt.com.models.Priority;
 public class App 
 {
 
-    private static EventManager manager;
-    private static Event event;
-    private static EventSubscriber subscriber;
+    // private static EventManager manager;
+    // private static Event event;
+    // private static EventSubscriber subscriber;
     
     public static void main( String[] args )
     {
@@ -39,21 +36,24 @@ public class App
 
         // manager.heartbeat();
 
-        File file = new File("src/main/java/exalt/com/file.txt");
-        byte bWrite[] = {65, 66, 67, 68, 69};
-        try {
-            FileReader reader = new FileReader(file);
-            int c;
-            try {
-                while((c = reader.read()) != -1){
-                    char ch = (char) c;
-                    System.out.print(ch);
-                }
-            } catch (IOException ex) {
-            }
+        List<String> content = new ArrayList<>();
 
-        } catch (FileNotFoundException ex) {
-            System.out.println("File Does not Exist");
+        try {
+            content = Files.readAllLines(Paths.get("src/main/java/exalt/com/file.txt"));
+        } catch (IOException exception) {
+            System.out.println("File not found");            
         }
+
+        System.out.println(content);
+        System.out.println(content.size());
+        System.out.println(content.get(0));
+
+        String separator = "=";
+        String[] num = content.get(0).split(separator);
+
+        System.out.println(num[1]);
+
+
+        
     }
 }
