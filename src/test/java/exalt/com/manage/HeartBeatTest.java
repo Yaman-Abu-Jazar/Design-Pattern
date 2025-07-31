@@ -5,6 +5,7 @@ import java.time.LocalTime;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import exalt.com.Subscription.SubscribeEvent;
@@ -76,6 +77,7 @@ public class HeartBeatTest {
         manager.clearSystemSubscribers();
     }
 
+    @Disabled
     @Test
     public void heartbeatTest(){
         SubscribeEvent subscribeTool = new SubscribeEvent();

@@ -6,7 +6,6 @@ import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -52,7 +51,6 @@ public class PublishTest {
         manager.clearSystemSubscribers();
     }
 
-    @Disabled
     @Test
     @DisplayName("Test the process of publish new events")
     public void normalPublishTest(){
@@ -74,7 +72,6 @@ public class PublishTest {
 
     }
 
-    @Disabled
     @Test
     @DisplayName("Testing The size of Event HashedMap after publishing the same event multiple times")
     public void testingDuplicatedEvents(){
