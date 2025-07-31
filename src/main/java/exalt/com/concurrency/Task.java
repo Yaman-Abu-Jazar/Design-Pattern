@@ -1,25 +1,20 @@
 package exalt.com.concurrency;
 
 import exalt.com.core.Event;
-import exalt.com.core.EventManager;
+import exalt.com.manageEvents.NotifyAboutEvent;
 
 public class Task implements Runnable {
 
-    private final EventManager manager;
-    Event event;
+    private final Event event;
 
     public Task(Event event){
-        this.manager = EventManager.getInstance();
         this.event = event;
     }
 
     @Override
     public void run() {
-        if(!manager.getSubscribers().get(this.event).isEmpty()){
-            manager.notifySubscribers(this.event);
-        } else {
-            System.out.println("This Event : " + event + " has no subscribers.");
-        }
+        NotifyAboutEvent notifier = new NotifyAboutEvent();
+        notifier.notifySubscribers(this.event);
     }
     
 }

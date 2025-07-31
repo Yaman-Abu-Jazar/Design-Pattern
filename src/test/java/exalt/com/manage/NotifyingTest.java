@@ -1,25 +1,34 @@
-package exalt.com.core;
+package exalt.com.manage;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
+import exalt.com.Subscription.SubscribeEvent;
 import exalt.com.builders.EventBuilder;
 import exalt.com.builders.SubscriberBuilder;
+import exalt.com.core.Event;
+import exalt.com.core.EventManager;
+import exalt.com.core.EventSubscriber;
+import exalt.com.manageEvents.NotifyAboutEvent;
+import exalt.com.manageEvents.PublishEvent;
 import exalt.com.models.EventType;
 import exalt.com.models.Priority;
 import exalt.com.models.SubscriberType;
 
-/**
- * Unit test for EventManager Class.
- */
-class EventManagerTest {
+public class NotifyingTest {
 
     private static final EventManager manager = EventManager.getInstance();
-    private static final Event[] event = new Event[5];
-    private static final EventSubscriber[] subscriber = new EventSubscriber[5];
+    private static final Event[] event = new Event[2];
+    private static final EventSubscriber[] subscriber = new EventSubscriber[4];
 
     @BeforeAll
     static void setUp(){
@@ -35,27 +44,6 @@ class EventManagerTest {
         .setEventTime(LocalDateTime.of(2025, 8, 2, 14, 30))
         .setEventPriority(Priority.HIGH)
         .setEventType(EventType.SCHEDULED)
-        .build();
-
-        event[2] = new EventBuilder("System Maintenance")
-        .setDescription("Monthly scheduled maintenance to update security patches.")
-        .setEventTime(LocalDateTime.of(2025, 8, 4, 10, 0))
-        .setEventPriority(Priority.MEDIUM)
-        .setEventType(EventType.UNSCHEDULED)
-        .build();
-
-        event[3] = new EventBuilder("Release Planning")
-        .setDescription("Sprint planning for upcoming software version 2.4 release.")
-        .setEventTime(LocalDateTime.of(2025, 8, 5, 12, 0))
-        .setEventPriority(Priority.HIGH)
-        .setEventType(EventType.SCHEDULED)
-        .build();
-
-        event[4] = new EventBuilder("Client Demo")
-        .setDescription("Demonstration of new platform features to the enterprise client.")
-        .setEventTime(LocalDateTime.of(2025, 8, 5, 16, 30))
-        .setEventPriority(Priority.LOW)
-        .setEventType(EventType.UNSCHEDULED)
         .build();
 
 
@@ -74,10 +62,6 @@ class EventManagerTest {
         subscriber[3] = new SubscriberBuilder(4, "Mohammad", "Shalabi")
                         .setDailyWorkHours(LocalTime.of(14, 0), LocalTime.of(22, 0))
                         .setDesiredPriority(Priority.LOW).setSubType(SubscriberType.EMAIL).build();
-
-        subscriber[4] = new SubscriberBuilder(5, "Adham", "Faqi")
-                        .setDailyWorkHours(LocalTime.of(8, 0), LocalTime.of(23, 0))
-                        .setDesiredPriority(Priority.LOW).setSubType(SubscriberType.EMAIL).build();
     }
 
     @AfterEach
@@ -85,4 +69,31 @@ class EventManagerTest {
         manager.clearSubscribers();
         manager.clearSystemSubscribers();
     }
+
+    @Disabled
+    @Test
+    public void notifyingTest(){
+        SubscribeEvent subscribeTool = new SubscribeEvent();
+        PublishEvent publisher = new PublishEvent();
+        NotifyAboutEvent notifyer = new NotifyAboutEvent();
+
+        ByteArrayOutputStream output_content = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(output_content));
+
+        publisher.publish(event[0]);
+        publisher.publish(event[1]);
+
+        subscribeTool.subscribe(event[0], subscriber[0]);
+        subscribeTool.subscribe(event[0], subscriber[1]);
+
+        assertEquals(2, manager.getSubscribers().size());
+        assertEquals(2, manager.getSubscribers().get(event[0]).size());
+        assertEquals(0, manager.getSubscribers().get(event[1]).size());
+        assertTrue(manager.getSubscribers().containsKey(event[0]));
+        assertTrue(manager.getSubscribers().containsKey(event[1]));
+
+        notifyer.notifySubscribers(event[0]);
+        notifyer.notifySubscribers(event[1]);
+    }
+    
 }

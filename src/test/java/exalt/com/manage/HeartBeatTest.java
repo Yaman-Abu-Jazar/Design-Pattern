@@ -1,21 +1,25 @@
-package exalt.com.core;
+package exalt.com.manage;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
+import exalt.com.Subscription.SubscribeEvent;
 import exalt.com.builders.EventBuilder;
 import exalt.com.builders.SubscriberBuilder;
+import exalt.com.core.Event;
+import exalt.com.core.EventManager;
+import exalt.com.core.EventSubscriber;
+import exalt.com.manageEvents.HeartBeatNotify;
+import exalt.com.manageEvents.PublishEvent;
 import exalt.com.models.EventType;
 import exalt.com.models.Priority;
 import exalt.com.models.SubscriberType;
 
-/**
- * Unit test for EventManager Class.
- */
-class EventManagerTest {
+public class HeartBeatTest {
 
     private static final EventManager manager = EventManager.getInstance();
     private static final Event[] event = new Event[5];
@@ -26,36 +30,22 @@ class EventManagerTest {
         event[0] = new EventBuilder("Code Review Session")
         .setDescription("Team-wide session to review and refactor core module pull requests.")
         .setEventTime(LocalDateTime.of(2025, 8, 2, 14, 0))
-        .setEventPriority(Priority.LOW)
-        .setEventType(EventType.UNSCHEDULED)
+        .setEventPriority(Priority.HIGH)
+        .setEventType(EventType.SCHEDULED)
         .build();
 
         event[1] = new EventBuilder("Database Migration")
         .setDescription("Migrate legacy database to cloud-based PostgreSQL system.")
         .setEventTime(LocalDateTime.of(2025, 8, 2, 14, 30))
-        .setEventPriority(Priority.HIGH)
-        .setEventType(EventType.SCHEDULED)
+        .setEventPriority(Priority.LOW)
+        .setEventType(EventType.UNSCHEDULED)
         .build();
 
         event[2] = new EventBuilder("System Maintenance")
         .setDescription("Monthly scheduled maintenance to update security patches.")
         .setEventTime(LocalDateTime.of(2025, 8, 4, 10, 0))
         .setEventPriority(Priority.MEDIUM)
-        .setEventType(EventType.UNSCHEDULED)
-        .build();
-
-        event[3] = new EventBuilder("Release Planning")
-        .setDescription("Sprint planning for upcoming software version 2.4 release.")
-        .setEventTime(LocalDateTime.of(2025, 8, 5, 12, 0))
-        .setEventPriority(Priority.HIGH)
         .setEventType(EventType.SCHEDULED)
-        .build();
-
-        event[4] = new EventBuilder("Client Demo")
-        .setDescription("Demonstration of new platform features to the enterprise client.")
-        .setEventTime(LocalDateTime.of(2025, 8, 5, 16, 30))
-        .setEventPriority(Priority.LOW)
-        .setEventType(EventType.UNSCHEDULED)
         .build();
 
 
@@ -85,4 +75,27 @@ class EventManagerTest {
         manager.clearSubscribers();
         manager.clearSystemSubscribers();
     }
+
+    @Test
+    public void heartbeatTest(){
+        SubscribeEvent subscribeTool = new SubscribeEvent();
+        PublishEvent publisher = new PublishEvent();
+        HeartBeatNotify heartbeat = new HeartBeatNotify();
+
+        publisher.publish(event[0]);
+        publisher.publish(event[1]);
+        publisher.publish(event[2]);
+
+        subscribeTool.subscribe(event[0], subscriber[0]);
+        subscribeTool.subscribe(event[0], subscriber[1]);
+
+        heartbeat.heartbeat();
+
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            System.out.println("Thread was interrupt");
+        }
+    }
+    
 }

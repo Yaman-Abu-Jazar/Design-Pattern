@@ -13,5 +13,11 @@ public interface EventSubscriber {
     public LocalTime getDailyWorkHoursEnd();
 
     public LocalTime getDailyWorkHoursBegin();
+
+    public boolean getWorkHoursBasedNotify();
+
+    public boolean getPriorityBasedNotify();
+
+    public boolean isNoneNotification();
     
 }

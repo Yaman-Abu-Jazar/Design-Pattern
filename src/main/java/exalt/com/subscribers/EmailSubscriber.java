@@ -113,6 +113,7 @@ public class EmailSubscriber implements EventSubscriber {
         this.priorityBasedNotify = priorityBasedNotify;
     }
 
+    @Override
     public boolean getPriorityBasedNotify() {
         return this.priorityBasedNotify;
     }
@@ -121,6 +122,7 @@ public class EmailSubscriber implements EventSubscriber {
         this.workHoursBasedNotify = workHoursBasedNotify;
     }
 
+    @Override
     public boolean getWorkHoursBasedNotify() {
         return this.workHoursBasedNotify;
     } 
@@ -133,6 +135,7 @@ public class EmailSubscriber implements EventSubscriber {
         this.allNotification = allNotification;
     }
 
+    @Override
     public boolean isNoneNotification() {
         return noneNotification;
     }

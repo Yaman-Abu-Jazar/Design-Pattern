@@ -6,15 +6,14 @@ import java.util.stream.Stream;
 import exalt.com.core.Event;
 import exalt.com.core.EventSubscriber;
 
-public class PriorityFilter implements MyFilter {
+public class NoneFilter implements MyFilter {
 
     @Override
     public List<EventSubscriber> filterSubscribers(List<EventSubscriber> subscribers, Event event) {
         Stream<EventSubscriber> stream = subscribers.stream()
-            .filter(subscriber -> ((event.getPriority().isEqualOrGreater(subscriber.getDesiredEventPriority())) &&
-                                    subscriber.getPriorityBasedNotify()) || !subscriber.getPriorityBasedNotify());
+            .filter(subscriber -> (!subscriber.isNoneNotification()));
 
         return stream.toList();
     }
-    
+
 }

@@ -55,6 +55,11 @@ public class SubscriberBuilder {
         return this;
     }
 
+    public SubscriberBuilder setNoneNotifyBased(boolean noneNotification){
+        this.noneNotification = noneNotification;
+        return this;
+    }
+
     public EventSubscriber build(){
         switch (this.type) {
             case SubscriberType.CONSOLE -> {

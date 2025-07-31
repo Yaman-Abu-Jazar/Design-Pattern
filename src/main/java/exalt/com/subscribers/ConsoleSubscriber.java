@@ -111,6 +111,7 @@ public class ConsoleSubscriber implements EventSubscriber {
         this.priorityBasedNotify = priorityBasedNotify;
     }
 
+    @Override
     public boolean getPriorityBasedNotify() {
         return this.priorityBasedNotify;
     }
@@ -119,6 +120,7 @@ public class ConsoleSubscriber implements EventSubscriber {
         this.workHoursBasedNotify = workHoursBasedNotify;
     }
 
+    @Override
     public boolean getWorkHoursBasedNotify() {
         return this.workHoursBasedNotify;
     } 
@@ -131,6 +133,7 @@ public class ConsoleSubscriber implements EventSubscriber {
         this.allNotification = allNotification;
     }
 
+    @Override
     public boolean isNoneNotification() {
         return noneNotification;
     }

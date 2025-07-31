@@ -20,7 +20,8 @@ public class WorkHoursFilter implements MyFilter {
             LocalTime workEnd = subscriber.getDailyWorkHoursEnd();
             LocalTime workBegin = subscriber.getDailyWorkHoursBegin();
 
-            return (eventTime.isAfter(workBegin) && eventTime.isBefore(workEnd));
+            return (((eventTime.isAfter(workBegin) && eventTime.isBefore(workEnd))) && subscriber.getWorkHoursBasedNotify()
+                    || !subscriber.getWorkHoursBasedNotify());
         });
 
         return stream.toList();
