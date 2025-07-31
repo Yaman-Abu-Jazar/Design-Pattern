@@ -19,5 +19,7 @@ public interface EventSubscriber {
     public boolean getPriorityBasedNotify();
 
     public boolean isNoneNotification();
+
+    public boolean isAdmin();
     
 }

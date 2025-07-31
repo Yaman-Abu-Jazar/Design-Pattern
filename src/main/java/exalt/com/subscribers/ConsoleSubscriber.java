@@ -146,4 +146,9 @@ public class ConsoleSubscriber implements EventSubscriber {
     public void update(){
         System.out.println("User with " + this.toString() + " has been notified about the event through Console Print Statement.");
     }
+
+    @Override
+    public boolean isAdmin() {
+        return this.isAdmin;
+    }
 }

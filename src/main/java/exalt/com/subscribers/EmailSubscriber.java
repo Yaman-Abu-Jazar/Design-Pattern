@@ -148,5 +148,10 @@ public class EmailSubscriber implements EventSubscriber {
     public void update(){
         System.out.println("User with " + this.toString() + " has been notified about the event through Email.");
     }
+
+    @Override
+    public boolean isAdmin() {
+        return this.isAdmin;
+    }
     
 }
